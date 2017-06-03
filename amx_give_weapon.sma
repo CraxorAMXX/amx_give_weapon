@@ -8,6 +8,26 @@ public plugin_init( )
 {
 	register_plugin("amx_give_weapon", "1.0", "Craxor");
 	register_concmd( "amx_give_weapon", "_givecmd", ADMIN_KICK, "amx_give_weapon <Name> <weapon_*  Name> <Ammo> <BpAmmo>" );
+	register_clcmd( "amx_give_weapon_list", "_listcmd" );
+}
+
+public _listcmd( id )
+{
+	if( !is_user_admin( id ) )
+	{
+		client_print( id, print_console, "You have no acces to this command." );
+		return PLUGIN_HANDLED;
+	}
+
+	new szWeaponName[20];
+	client_print( id, print_console, "* List with all weapons avaible to use with amx_give_weapon <> *" );
+
+	for( new i = 1; i < 31; i++ )
+	{
+		get_weaponname( i, szWeaponName, charsmax(szWeaponName) );
+		client_print( id, print_console, "%i. %s",i,szWeaponName );
+	}
+	return PLUGIN_HANDLED;
 }
 
 public _givecmd( id, level, cid )
@@ -32,6 +52,7 @@ public _givecmd( id, level, cid )
 
 	if( !player || !iWeaponID )
 	{
+		client_print( id, print_console, "Users '%s' not found or invalid weapon, type amx_give_weapon_list for a list with all weapons.", szArg1 );
 		return PLUGIN_HANDLED;
 	}
 
@@ -77,4 +98,4 @@ give_user_weapon( index , iWeaponTypeID , iClip=0 , iBPAmmo=0 , szWeapon[]="" , 
 	}
 	
 	return iWeaponEntity;
-}
+}	
