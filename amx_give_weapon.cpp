@@ -6,7 +6,13 @@
 
 public plugin_init( )
 {
-	register_plugin("amx_give_weapon", "1.0", "Craxor");
+	register_plugin
+	(
+		"Amx Give Weapon",
+		"1.0",
+		"Craxor"
+	);
+	
 	register_concmd( "amx_give_weapon", "_givecmd", ADMIN_KICK, "amx_give_weapon <Name> <weapon_*  Name> <Ammo> <BpAmmo>" );
 	register_clcmd( "amx_give_weapon_list", "_listcmd" );
 }
